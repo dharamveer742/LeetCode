@@ -20,7 +20,7 @@ class GFG {
 // } Driver Code Ends
 
 
-// Back-end complete function Template for Java
+// User function Template for Java
 
 class Solution {
     int[] nearestPerfectSquare(int N) {
@@ -48,11 +48,11 @@ class Solution {
        
         if(left*left-N<N-right*right){
             ans[0]=(int) left*(int)left;
-            ans[1]=(int) Math.abs(left*left-N);
+            ans[1]=(int) left*(int)left-N;
         }
         else{
             ans[0]=(int) right*(int)right;
-            ans[1]=(int) Math.abs(N-right*right);
+            ans[1]= (int) N-(int)right*(int)right;
         }
         return ans;
     }
