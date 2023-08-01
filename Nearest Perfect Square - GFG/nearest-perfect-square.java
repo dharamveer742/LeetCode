@@ -24,15 +24,36 @@ class GFG {
 
 class Solution {
     int[] nearestPerfectSquare(int N) {
-        double root = Math.sqrt(N);
-        double lower = Math.floor(root), upper = Math.ceil(root);
-        int[] ans = new int[2];
-        if (upper - root <= root - lower) {
-            ans[0] = (int)(upper * upper);
-        } else {
-            ans[0] = (int)(lower * lower);
+        long left =0;
+        long right = N;
+        while(left<=right){
+            long mid = left+(right-left)/2;
+            if(mid*mid==N){
+                int[] ans = new int[2];
+                int mul = (int) mid*(int) mid;
+                ans[0]=mul;
+                
+                ans[1]=0;
+                return ans;
+            }
+            else if(mid*mid>N){
+                right = mid-1;
+            }
+            else{
+                left = mid+1;
+            }
+            
         }
-        ans[1] = Math.abs(ans[0] - N);
+        int[] ans = new int[2];
+       
+        if(left*left-N<N-right*right){
+            ans[0]=(int) left*(int)left;
+            ans[1]=(int) Math.abs(left*left-N);
+        }
+        else{
+            ans[0]=(int) right*(int)right;
+            ans[1]=(int) Math.abs(N-right*right);
+        }
         return ans;
     }
 }
