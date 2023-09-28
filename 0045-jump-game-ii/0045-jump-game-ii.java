@@ -13,8 +13,6 @@ class Solution {
             return 0;
         }
         int[] dp= new int[len];
-        Arrays.fill(dp,Integer.MAX_VALUE);  // why are we filling maximum 
-        dp[0]=0;
         for(int i=1;i<len;i++){
             int min=Integer.MAX_VALUE;
             for(int j=0;j<i;j++){
@@ -23,7 +21,7 @@ class Solution {
                 }
             }
              
-            dp[i]=min+1;
+        dp[i]=min+1;
             
            
         }
