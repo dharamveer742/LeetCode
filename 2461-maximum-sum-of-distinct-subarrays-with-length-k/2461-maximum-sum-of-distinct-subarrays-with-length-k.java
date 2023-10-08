@@ -1,45 +1,28 @@
 class Solution {
     public long maximumSubarraySum(int[] nums, int k) {
-        int windowEnd=0;
-        int windowStart=0;
-        long ans=0;
+        HashMap<Integer,Integer> map = new HashMap<>();
+        long maxSum = 0;
         long sum=0;
-        HashMap<Integer,Integer> mp = new HashMap<>();
-        while(windowEnd<nums.length){
-            if(windowEnd-windowStart+1<k){
-                sum+=nums[windowEnd];
-                if(mp.containsKey(nums[windowEnd])){
-                    mp.put(nums[windowEnd],mp.get(nums[windowEnd])+1);
-                }
-                else{
-                    mp.put(nums[windowEnd],1);
-                }
-                windowEnd++;
+        for(int i=0;i<k-1;i++){
+            sum+=nums[i];
+            map.put(nums[i],map.getOrDefault(nums[i],0)+1);
+        }
+        for(int i=k-1;i<nums.length;i++){
+            sum+=nums[i];
+            map.put(nums[i],map.getOrDefault(nums[i],0)+1);
+            if(map.size()==k){
+                maxSum= Math.max(sum,maxSum);
             }
-            else if(windowEnd-windowStart+1==k){
-                sum+=nums[windowEnd];
-                if(mp.containsKey(nums[windowEnd])){
-                    mp.put(nums[windowEnd],mp.get(nums[windowEnd])+1);
-                }
-                else{
-                    mp.put(nums[windowEnd],1);
-                }
-                if(mp.size()==k){
-                    ans=Math.max(ans,sum);
-                }
-                int freq=mp.get(nums[windowStart]);
-                sum-=nums[windowStart];
-                if(freq==1){
-                    mp.remove(nums[windowStart]);
-                }
-                else{
-                    mp.put(nums[windowStart],mp.get(nums[windowStart])-1);
-                }
-                    
-                windowStart++;
-                windowEnd++;
+            sum-=nums[i-k+1];
+            // remove 
+            int count = map.get(nums[i-k+1]);
+            if(count==1){
+                map.remove(nums[i-k+1]);
+            }
+            else{
+                map.put(nums[i-k+1],count-1);
             }
         }
-        return ans;
+        return maxSum;
     }
 }
